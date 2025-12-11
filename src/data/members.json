@@ -1,0 +1,20 @@
+[
+  {
+    "id": "f07c9940-0be2-4667-9e54-073a9adeeae9",
+    "clubId": "711548a7-a345-46e5-bee2-fb463f2cfaf8",
+    "userId": "a0a4c262-8715-4c1b-b483-6fcae95fe5e0",
+    "role": "member",
+    "status": "approved",
+    "requestedAt": "2025-12-11T08:37:00.534Z",
+    "approvedAt": "2025-12-11T08:42:07.752Z"
+  },
+  {
+    "id": "911bfdb1-787b-4933-aece-fc0c47158c8f",
+    "clubId": "711548a7-a345-46e5-bee2-fb463f2cfaf8",
+    "userId": "a900a215-5821-4ce6-9a37-becabe787d5a",
+    "role": "manager",
+    "status": "approved",
+    "requestedAt": "2025-12-11T08:53:12.935Z",
+    "approvedAt": "2025-12-11T08:53:34.463Z"
+  }
+]

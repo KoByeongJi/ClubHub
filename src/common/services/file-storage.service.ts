@@ -3,12 +3,14 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { User } from '../../users/entities/user.entity';
 import { Club } from '../../clubs/entities/club.entity';
+import { Member } from '../../members/entities/member.entity';
 
 @Injectable()
 export class FileStorageService {
   private dataDir = path.join(process.cwd(), 'src', 'data');
   private usersFile = path.join(this.dataDir, 'users.json');
   private clubsFile = path.join(this.dataDir, 'clubs.json');
+  private membersFile = path.join(this.dataDir, 'members.json');
 
   constructor() {
     this.initializeStorage();
@@ -28,6 +30,11 @@ export class FileStorageService {
     // clubs.json이 없으면 초기화
     if (!fs.existsSync(this.clubsFile)) {
       fs.writeFileSync(this.clubsFile, JSON.stringify([], null, 2));
+    }
+
+    // members.json이 없으면 초기화
+    if (!fs.existsSync(this.membersFile)) {
+      fs.writeFileSync(this.membersFile, JSON.stringify([], null, 2));
     }
   }
 
@@ -118,6 +125,63 @@ export class FileStorageService {
 
     clubs.splice(index, 1);
     fs.writeFileSync(this.clubsFile, JSON.stringify(clubs, null, 2));
+    return true;
+  }
+
+  // Member 관련 메서드
+  getAllMembers(): Member[] {
+    const data = fs.readFileSync(this.membersFile, 'utf-8');
+    return JSON.parse(data);
+  }
+
+  getMemberById(id: string): Member | null {
+    const members = this.getAllMembers();
+    return members.find((member) => member.id === id) || null;
+  }
+
+  getMembersByClubId(clubId: string): Member[] {
+    const members = this.getAllMembers();
+    return members.filter((member) => member.clubId === clubId);
+  }
+
+  getMemberByUserAndClub(userId: string, clubId: string): Member | null {
+    const members = this.getAllMembers();
+    return (
+      members.find(
+        (member) => member.userId === userId && member.clubId === clubId,
+      ) || null
+    );
+  }
+
+  saveMember(member: Member): void {
+    const members = this.getAllMembers();
+    members.push(member);
+    fs.writeFileSync(this.membersFile, JSON.stringify(members, null, 2));
+  }
+
+  updateMember(id: string, updatedMember: Partial<Member>): Member | null {
+    const members = this.getAllMembers();
+    const index = members.findIndex((member) => member.id === id);
+
+    if (index === -1) {
+      return null;
+    }
+
+    members[index] = { ...members[index], ...updatedMember };
+    fs.writeFileSync(this.membersFile, JSON.stringify(members, null, 2));
+    return members[index];
+  }
+
+  deleteMember(id: string): boolean {
+    const members = this.getAllMembers();
+    const index = members.findIndex((member) => member.id === id);
+
+    if (index === -1) {
+      return false;
+    }
+
+    members.splice(index, 1);
+    fs.writeFileSync(this.membersFile, JSON.stringify(members, null, 2));
     return true;
   }
 }
