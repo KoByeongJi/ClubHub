@@ -267,6 +267,70 @@ app.enableCors();
 
 ---
 
+## 동아리 관리 테스트
+
+### 전제
+
+- 관리자 계정의 `access_token`이 필요합니다. (`/auth/login`에서 `role`이 `admin`인 계정 토큰 사용)
+
+### 1. 동아리 생성 (관리자만)
+
+```bash
+curl -X POST http://localhost:3000/clubs \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $ADMIN_TOKEN" \
+  -d '{
+    "name": "소프트웨어 연구회",
+    "description": "웹/모바일 프로젝트를 함께 만드는 동아리"
+  }'
+```
+
+**예상 응답 (201 Created)**
+
+```json
+{
+  "id": "c6c34c7c-0c3b-4f57-9d44-9c3c8c0f1c9b",
+  "name": "소프트웨어 연구회",
+  "description": "웹/모바일 프로젝트를 함께 만드는 동아리",
+  "ownerId": "<admin-user-id>",
+  "createdAt": "2025-12-11T10:00:00.000Z"
+}
+```
+
+### 2. 동아리 목록 조회 (전체 공개)
+
+```bash
+curl -X GET http://localhost:3000/clubs
+```
+
+### 3. 동아리 상세 조회 (전체 공개)
+
+```bash
+curl -X GET http://localhost:3000/clubs/<clubId>
+```
+
+### 4. 동아리 수정 (회장만)
+
+동아리를 만든 사용자의 토큰을 사용해야 합니다.
+
+```bash
+curl -X PATCH http://localhost:3000/clubs/<clubId> \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $OWNER_TOKEN" \
+  -d '{
+    "description": "프로젝트 + 스터디 진행"
+  }'
+```
+
+### 5. 동아리 삭제 (회장만)
+
+```bash
+curl -X DELETE http://localhost:3000/clubs/<clubId> \
+  -H "Authorization: Bearer $OWNER_TOKEN"
+```
+
+---
+
 ## 다음 단계
 
 - 사용자 프로필 수정 기능 추가

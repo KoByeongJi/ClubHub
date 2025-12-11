@@ -6,5 +6,13 @@
     "name": "User1",
     "role": "user",
     "createdAt": "2025-12-11T07:34:19.967Z"
+  },
+  {
+    "id": "a0a4c262-8715-4c1b-b483-6fcae95fe5e0",
+    "email": "admin@example.com",
+    "password": "$2b$10$xDnrKBmGQ0L7TWoEAhPOPOQi/dopQchRuXGMmPkCPqW17PWu8LAki",
+    "name": "Admin",
+    "role": "admin",
+    "createdAt": "2025-12-11T07:49:32.957Z"
   }
 ]
