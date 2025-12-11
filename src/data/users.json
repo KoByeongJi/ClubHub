@@ -1,0 +1,10 @@
+[
+  {
+    "id": "a900a215-5821-4ce6-9a37-becabe787d5a",
+    "email": "testuser1@example.com",
+    "password": "$2b$10$4RmfsbwJEdTpQkycL4QizegIGp3oy5DW.5BypPbJrVB.1vJdEu4h.",
+    "name": "User1",
+    "role": "user",
+    "createdAt": "2025-12-11T07:34:19.967Z"
+  }
+]
