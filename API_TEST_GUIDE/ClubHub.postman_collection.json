@@ -1,0 +1,1172 @@
+{
+	"info": {
+		"_postman_id": "82d647c3-ebb4-422f-a84a-81f1f3680ce1",
+		"name": "ClubHub",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29623745"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "admin@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "admin123",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Admin",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "testuser1@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "testuser123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "me",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMGE0YzI2Mi04NzE1LTRjMWItYjQ4My02ZmNhZTk1ZmU1ZTAiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY1NDM5NDc3LCJleHAiOjE3NjU1MjU4Nzd9.B6eIpu1OZSWygfeKMtVuj5VTAtZPTogBpWQ_rTDWnyQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/me",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Clubs",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMGE0YzI2Mi04NzE1LTRjMWItYjQ4My02ZmNhZTk1ZmU1ZTAiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY1NDM5NDc3LCJleHAiOjE3NjU1MjU4Nzd9.B6eIpu1OZSWygfeKMtVuj5VTAtZPTogBpWQ_rTDWnyQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "캐치미",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "창업 동아리 ",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/clubs",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"clubs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "modify",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMGE0YzI2Mi04NzE1LTRjMWItYjQ4My02ZmNhZTk1ZmU1ZTAiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY1NDM5NDc3LCJleHAiOjE3NjU1MjU4Nzd9.B6eIpu1OZSWygfeKMtVuj5VTAtZPTogBpWQ_rTDWnyQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "description",
+									"value": "창업 동아리(온라인 저지)",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/clubs/711548a7-a345-46e5-bee2-fb463f2cfaf8",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"clubs",
+								"711548a7-a345-46e5-bee2-fb463f2cfaf8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMGE0YzI2Mi04NzE1LTRjMWItYjQ4My02ZmNhZTk1ZmU1ZTAiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY1NDM5NDc3LCJleHAiOjE3NjU1MjU4Nzd9.B6eIpu1OZSWygfeKMtVuj5VTAtZPTogBpWQ_rTDWnyQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/clubs/52f8354c-45ef-4eb8-ae56-d8dc871791f4",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"clubs",
+								"52f8354c-45ef-4eb8-ae56-d8dc871791f4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/clubs",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"clubs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/clubs/711548a7-a345-46e5-bee2-fb463f2cfaf8",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"clubs",
+								"711548a7-a345-46e5-bee2-fb463f2cfaf8"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Members",
+			"item": [
+				{
+					"name": "join",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhOTAwYTIxNS01ODIxLTRjZTYtOWEzNy1iZWNhYmU3ODdkNWEiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzY1NDQyOTQ3LCJleHAiOjE3NjU1MjkzNDd9.5gCAMW-rADFjnAsxqOF5YnWsjdTWyeOCATfmRA_L0lw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "clubId",
+									"value": "711548a7-a345-46e5-bee2-fb463f2cfaf8",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/members/join",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"members",
+								"join"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pending",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMGE0YzI2Mi04NzE1LTRjMWItYjQ4My02ZmNhZTk1ZmU1ZTAiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY1NDQyMzMzLCJleHAiOjE3NjU1Mjg3MzN9.4urfeaMCayNfxso2RFjjQ27VhUZPSxR6zaOMIfOj9OE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/members/club/711548a7-a345-46e5-bee2-fb463f2cfaf8/pending",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"members",
+								"club",
+								"711548a7-a345-46e5-bee2-fb463f2cfaf8",
+								"pending"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "approve",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMGE0YzI2Mi04NzE1LTRjMWItYjQ4My02ZmNhZTk1ZmU1ZTAiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY1NDQyMzMzLCJleHAiOjE3NjU1Mjg3MzN9.4urfeaMCayNfxso2RFjjQ27VhUZPSxR6zaOMIfOj9OE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "memberId",
+									"value": "911bfdb1-787b-4933-aece-fc0c47158c8f",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/members/club/711548a7-a345-46e5-bee2-fb463f2cfaf8/approve",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"members",
+								"club",
+								"711548a7-a345-46e5-bee2-fb463f2cfaf8",
+								"approve"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reject",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMGE0YzI2Mi04NzE1LTRjMWItYjQ4My02ZmNhZTk1ZmU1ZTAiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY1NDQyMzMzLCJleHAiOjE3NjU1Mjg3MzN9.4urfeaMCayNfxso2RFjjQ27VhUZPSxR6zaOMIfOj9OE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "memberId",
+									"value": "25f133e3-d90c-444c-abc7-8e467e652838",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/members/club/711548a7-a345-46e5-bee2-fb463f2cfaf8/reject",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"members",
+								"club",
+								"711548a7-a345-46e5-bee2-fb463f2cfaf8",
+								"reject"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMGE0YzI2Mi04NzE1LTRjMWItYjQ4My02ZmNhZTk1ZmU1ZTAiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY1NDQyMzMzLCJleHAiOjE3NjU1Mjg3MzN9.4urfeaMCayNfxso2RFjjQ27VhUZPSxR6zaOMIfOj9OE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/members/club/711548a7-a345-46e5-bee2-fb463f2cfaf8",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"members",
+								"club",
+								"711548a7-a345-46e5-bee2-fb463f2cfaf8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "leave",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhOTAwYTIxNS01ODIxLTRjZTYtOWEzNy1iZWNhYmU3ODdkNWEiLCJlbWFpbCI6InRlc3R1c2VyMUBleGFtcGxlLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzY1NDQyOTQ3LCJleHAiOjE3NjU1MjkzNDd9.5gCAMW-rADFjnAsxqOF5YnWsjdTWyeOCATfmRA_L0lw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/members/club/711548a7-a345-46e5-bee2-fb463f2cfaf8/leave",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"members",
+								"club",
+								"711548a7-a345-46e5-bee2-fb463f2cfaf8",
+								"leave"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMGE0YzI2Mi04NzE1LTRjMWItYjQ4My02ZmNhZTk1ZmU1ZTAiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY1NDQyMzMzLCJleHAiOjE3NjU1Mjg3MzN9.4urfeaMCayNfxso2RFjjQ27VhUZPSxR6zaOMIfOj9OE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/members/club/711548a7-a345-46e5-bee2-fb463f2cfaf8/remove/25f133e3-d90c-444c-abc7-8e467e652838",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"members",
+								"club",
+								"711548a7-a345-46e5-bee2-fb463f2cfaf8",
+								"remove",
+								"25f133e3-d90c-444c-abc7-8e467e652838"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "role",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMGE0YzI2Mi04NzE1LTRjMWItYjQ4My02ZmNhZTk1ZmU1ZTAiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY1NDQyMzMzLCJleHAiOjE3NjU1Mjg3MzN9.4urfeaMCayNfxso2RFjjQ27VhUZPSxR6zaOMIfOj9OE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "memberId",
+									"value": "911bfdb1-787b-4933-aece-fc0c47158c8f",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "vice_president",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/members/club/711548a7-a345-46e5-bee2-fb463f2cfaf8/role/911bfdb1-787b-4933-aece-fc0c47158c8f",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"members",
+								"club",
+								"711548a7-a345-46e5-bee2-fb463f2cfaf8",
+								"role",
+								"911bfdb1-787b-4933-aece-fc0c47158c8f"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMGE0YzI2Mi04NzE1LTRjMWItYjQ4My02ZmNhZTk1ZmU1ZTAiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY1NDQyMzMzLCJleHAiOjE3NjU1Mjg3MzN9.4urfeaMCayNfxso2RFjjQ27VhUZPSxR6zaOMIfOj9OE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "송년회",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "연말 송년회",
+									"type": "text"
+								},
+								{
+									"key": "startDate",
+									"value": "2025-12-20T17:00:00Z",
+									"type": "text"
+								},
+								{
+									"key": "endDate",
+									"value": "2025-12-20T22:00:00Z",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "합정 파티룸",
+									"type": "text"
+								},
+								{
+									"key": "maxAttendees",
+									"value": "20",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/events/club/711548a7-a345-46e5-bee2-fb463f2cfaf8",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"events",
+								"club",
+								"711548a7-a345-46e5-bee2-fb463f2cfaf8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMGE0YzI2Mi04NzE1LTRjMWItYjQ4My02ZmNhZTk1ZmU1ZTAiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY1NDQyMzMzLCJleHAiOjE3NjU1Mjg3MzN9.4urfeaMCayNfxso2RFjjQ27VhUZPSxR6zaOMIfOj9OE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/events/club/711548a7-a345-46e5-bee2-fb463f2cfaf8",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"events",
+								"club",
+								"711548a7-a345-46e5-bee2-fb463f2cfaf8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "detail",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMGE0YzI2Mi04NzE1LTRjMWItYjQ4My02ZmNhZTk1ZmU1ZTAiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY1NDQyMzMzLCJleHAiOjE3NjU1Mjg3MzN9.4urfeaMCayNfxso2RFjjQ27VhUZPSxR6zaOMIfOj9OE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/events/club/711548a7-a345-46e5-bee2-fb463f2cfaf8/90db9195-50ee-410d-8323-a72744dd91f8",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"events",
+								"club",
+								"711548a7-a345-46e5-bee2-fb463f2cfaf8",
+								"90db9195-50ee-410d-8323-a72744dd91f8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "modify",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMGE0YzI2Mi04NzE1LTRjMWItYjQ4My02ZmNhZTk1ZmU1ZTAiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY1NDQyMzMzLCJleHAiOjE3NjU1Mjg3MzN9.4urfeaMCayNfxso2RFjjQ27VhUZPSxR6zaOMIfOj9OE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "연말 송년회",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "저녁 식사 및 간단한 레크레이션",
+									"type": "text"
+								},
+								{
+									"key": "startDate",
+									"value": "2025-12-21T17:00:00Z",
+									"type": "text"
+								},
+								{
+									"key": "endDate",
+									"value": "2025-12-21T22:00:00Z",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "성수 파티룸",
+									"type": "text"
+								},
+								{
+									"key": "maxAttendees",
+									"value": "25",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/events/club/711548a7-a345-46e5-bee2-fb463f2cfaf8/90db9195-50ee-410d-8323-a72744dd91f8",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"events",
+								"club",
+								"711548a7-a345-46e5-bee2-fb463f2cfaf8",
+								"90db9195-50ee-410d-8323-a72744dd91f8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMGE0YzI2Mi04NzE1LTRjMWItYjQ4My02ZmNhZTk1ZmU1ZTAiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY1NDQyMzMzLCJleHAiOjE3NjU1Mjg3MzN9.4urfeaMCayNfxso2RFjjQ27VhUZPSxR6zaOMIfOj9OE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/events/club/711548a7-a345-46e5-bee2-fb463f2cfaf8/1863dd81-7614-4ebe-8e9c-cf788e3c8edc",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"events",
+								"club",
+								"711548a7-a345-46e5-bee2-fb463f2cfaf8",
+								"1863dd81-7614-4ebe-8e9c-cf788e3c8edc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remind",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMGE0YzI2Mi04NzE1LTRjMWItYjQ4My02ZmNhZTk1ZmU1ZTAiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY1NDQyMzMzLCJleHAiOjE3NjU1Mjg3MzN9.4urfeaMCayNfxso2RFjjQ27VhUZPSxR6zaOMIfOj9OE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/events/club/711548a7-a345-46e5-bee2-fb463f2cfaf8/90db9195-50ee-410d-8323-a72744dd91f8/remind",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"events",
+								"club",
+								"711548a7-a345-46e5-bee2-fb463f2cfaf8",
+								"90db9195-50ee-410d-8323-a72744dd91f8",
+								"remind"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "\bNotifications",
+			"item": [
+				{
+					"name": "announcements",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMGE0YzI2Mi04NzE1LTRjMWItYjQ4My02ZmNhZTk1ZmU1ZTAiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY1NDQyMzMzLCJleHAiOjE3NjU1Mjg3MzN9.4urfeaMCayNfxso2RFjjQ27VhUZPSxR6zaOMIfOj9OE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "연말 송년회 안내",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "드레스코드: 크리스마스",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "general",
+									"type": "text"
+								},
+								{
+									"key": "isPinned",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/notifications/club/711548a7-a345-46e5-bee2-fb463f2cfaf8/announcements",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"notifications",
+								"club",
+								"711548a7-a345-46e5-bee2-fb463f2cfaf8",
+								"announcements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMGE0YzI2Mi04NzE1LTRjMWItYjQ4My02ZmNhZTk1ZmU1ZTAiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY1NDQyMzMzLCJleHAiOjE3NjU1Mjg3MzN9.4urfeaMCayNfxso2RFjjQ27VhUZPSxR6zaOMIfOj9OE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/notifications/club/711548a7-a345-46e5-bee2-fb463f2cfaf8/announcements",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"notifications",
+								"club",
+								"711548a7-a345-46e5-bee2-fb463f2cfaf8",
+								"announcements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "detail",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMGE0YzI2Mi04NzE1LTRjMWItYjQ4My02ZmNhZTk1ZmU1ZTAiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY1NDQyMzMzLCJleHAiOjE3NjU1Mjg3MzN9.4urfeaMCayNfxso2RFjjQ27VhUZPSxR6zaOMIfOj9OE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{baseURL}}/notifications/club/711548a7-a345-46e5-bee2-fb463f2cfaf8/announcements/084e1b4b-587b-48b8-aaf6-b0c3df782f30",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"notifications",
+								"club",
+								"711548a7-a345-46e5-bee2-fb463f2cfaf8",
+								"announcements",
+								"084e1b4b-587b-48b8-aaf6-b0c3df782f30"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "modify",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMGE0YzI2Mi04NzE1LTRjMWItYjQ4My02ZmNhZTk1ZmU1ZTAiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY1NDQyMzMzLCJleHAiOjE3NjU1Mjg3MzN9.4urfeaMCayNfxso2RFjjQ27VhUZPSxR6zaOMIfOj9OE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "content",
+									"value": "드레스코드: 포멀",
+									"type": "text"
+								},
+								{
+									"key": "isPinned",
+									"value": "false",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/notifications/club/711548a7-a345-46e5-bee2-fb463f2cfaf8/announcements/084e1b4b-587b-48b8-aaf6-b0c3df782f30",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"notifications",
+								"club",
+								"711548a7-a345-46e5-bee2-fb463f2cfaf8",
+								"announcements",
+								"084e1b4b-587b-48b8-aaf6-b0c3df782f30"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Search",
+			"item": [
+				{
+					"name": "club",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMGE0YzI2Mi04NzE1LTRjMWItYjQ4My02ZmNhZTk1ZmU1ZTAiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY1NDQyMzMzLCJleHAiOjE3NjU1Mjg3MzN9.4urfeaMCayNfxso2RFjjQ27VhUZPSxR6zaOMIfOj9OE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/search/clubs?q=캐치미",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"search",
+								"clubs"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "캐치미"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "member",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMGE0YzI2Mi04NzE1LTRjMWItYjQ4My02ZmNhZTk1ZmU1ZTAiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY1NDQyMzMzLCJleHAiOjE3NjU1Mjg3MzN9.4urfeaMCayNfxso2RFjjQ27VhUZPSxR6zaOMIfOj9OE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/search/clubs/711548a7-a345-46e5-bee2-fb463f2cfaf8/members?q=test",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"search",
+								"clubs",
+								"711548a7-a345-46e5-bee2-fb463f2cfaf8",
+								"members"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "test"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "date",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMGE0YzI2Mi04NzE1LTRjMWItYjQ4My02ZmNhZTk1ZmU1ZTAiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY1NDQyMzMzLCJleHAiOjE3NjU1Mjg3MzN9.4urfeaMCayNfxso2RFjjQ27VhUZPSxR6zaOMIfOj9OE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/search/events?clubId=711548a7-a345-46e5-bee2-fb463f2cfaf8&startDate=2025-12-20&endDate=2025-12-25",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"search",
+								"events"
+							],
+							"query": [
+								{
+									"key": "clubId",
+									"value": "711548a7-a345-46e5-bee2-fb463f2cfaf8"
+								},
+								{
+									"key": "startDate",
+									"value": "2025-12-20"
+								},
+								{
+									"key": "endDate",
+									"value": "2025-12-25"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
