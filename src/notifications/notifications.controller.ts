@@ -12,15 +12,19 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { NotificationsService } from './notifications.service';
+import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { CreateAnnouncementDto } from './dto/create-announcement.dto';
 import { UpdateAnnouncementDto } from './dto/update-announcement.dto';
 import { JwtGuard } from '../common/guards/jwt.guard';
 
 @Controller('notifications')
+@ApiTags('Notifications')
 export class NotificationsController {
   constructor(private readonly notificationsService: NotificationsService) {}
 
   @Post('club/:clubId/announcements')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: '공지 생성 (회장)' })
   @UseGuards(JwtGuard)
   @HttpCode(HttpStatus.CREATED)
   create(
@@ -37,11 +41,13 @@ export class NotificationsController {
   }
 
   @Get('club/:clubId/announcements')
+  @ApiOperation({ summary: '공지 목록 조회' })
   findAll(@Param('clubId') clubId: string) {
     return this.notificationsService.findAll(clubId);
   }
 
   @Get('club/:clubId/announcements/:announcementId')
+  @ApiOperation({ summary: '공지 상세 조회' })
   findOne(
     @Param('clubId') clubId: string,
     @Param('announcementId') announcementId: string,
@@ -50,6 +56,8 @@ export class NotificationsController {
   }
 
   @Patch('club/:clubId/announcements/:announcementId')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: '공지 수정 (회장)' })
   @UseGuards(JwtGuard)
   update(
     @Param('clubId') clubId: string,
@@ -67,6 +75,8 @@ export class NotificationsController {
   }
 
   @Delete('club/:clubId/announcements/:announcementId')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: '공지 삭제 (회장)' })
   @UseGuards(JwtGuard)
   @HttpCode(HttpStatus.NO_CONTENT)
   remove(

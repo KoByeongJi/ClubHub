@@ -25,6 +25,26 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+## Quickstart (Clone & Test)
+
+```bash
+git clone https://github.com/KoByeongJi/ClubHub.git
+cd ClubHub
+
+# Node version (uses .nvmrc -> 20.11.1)
+nvm use
+
+# Install deps
+npm install
+
+# Run locally (watch mode)
+npm run start:dev
+```
+
+- Swagger UI: http://localhost:3000/api
+- API 인증: Authorize 버튼에 `Bearer <JWT>` 입력
+- WebSocket 테스트: `npm install socket.io-client` 후 `node ws-test.js` (API_TEST_GUIDE 참조)
+
 ## Project setup
 
 ```bash

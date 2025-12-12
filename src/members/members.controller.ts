@@ -12,6 +12,7 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { MembersService } from './members.service';
+import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { JoinClubDto } from './dto/join-club.dto';
 import { ApproveMemberDto } from './dto/approve-member.dto';
 import { RejectMemberDto } from './dto/reject-member.dto';
@@ -19,10 +20,13 @@ import { ChangeMemberRoleDto } from './dto/change-member-role.dto';
 import { JwtGuard } from '../common/guards/jwt.guard';
 
 @Controller('members')
+@ApiTags('Members')
 export class MembersController {
   constructor(private readonly membersService: MembersService) {}
 
   @Post('join')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: '동아리 가입 신청 (회원)' })
   @UseGuards(JwtGuard)
   @HttpCode(HttpStatus.CREATED)
   joinClub(@Body() joinClubDto: JoinClubDto, @Request() req) {
@@ -31,11 +35,14 @@ export class MembersController {
   }
 
   @Get('club/:clubId')
+  @ApiOperation({ summary: '동아리 회원 목록 조회' })
   getClubMembers(@Param('clubId') clubId: string) {
     return this.membersService.getClubMembers(clubId);
   }
 
   @Get('club/:clubId/pending')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: '가입 신청 목록 조회 (회장)' })
   @UseGuards(JwtGuard)
   getPendingRequests(@Param('clubId') clubId: string, @Request() req) {
     const requesterId = req.user.sub;
@@ -43,6 +50,8 @@ export class MembersController {
   }
 
   @Post('club/:clubId/approve')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: '가입 승인 (회장)' })
   @UseGuards(JwtGuard)
   approveMember(
     @Param('clubId') clubId: string,
@@ -58,6 +67,8 @@ export class MembersController {
   }
 
   @Post('club/:clubId/reject')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: '가입 거절 (회장)' })
   @UseGuards(JwtGuard)
   rejectMember(
     @Param('clubId') clubId: string,
@@ -73,6 +84,8 @@ export class MembersController {
   }
 
   @Delete('club/:clubId/leave')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: '동아리 탈퇴 (본인)' })
   @UseGuards(JwtGuard)
   @HttpCode(HttpStatus.NO_CONTENT)
   leaveClub(@Param('clubId') clubId: string, @Request() req) {
@@ -82,6 +95,8 @@ export class MembersController {
   }
 
   @Delete('club/:clubId/remove/:memberId')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: '회원 강제 탈퇴 (회장)' })
   @UseGuards(JwtGuard)
   @HttpCode(HttpStatus.NO_CONTENT)
   removeMember(
@@ -95,6 +110,8 @@ export class MembersController {
   }
 
   @Patch('club/:clubId/role/:memberId')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: '회원 권한 변경 (회장)' })
   @UseGuards(JwtGuard)
   changeMemberRole(
     @Param('clubId') clubId: string,

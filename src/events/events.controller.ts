@@ -12,15 +12,19 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { EventsService } from './events.service';
+import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { JwtGuard } from '../common/guards/jwt.guard';
 
 @Controller('events')
+@ApiTags('Events')
 export class EventsController {
   constructor(private readonly eventsService: EventsService) {}
 
   @Post('club/:clubId')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: '행사 생성 (회장)' })
   @UseGuards(JwtGuard)
   @HttpCode(HttpStatus.CREATED)
   create(
@@ -33,16 +37,20 @@ export class EventsController {
   }
 
   @Get('club/:clubId')
+  @ApiOperation({ summary: '행사 목록 조회' })
   findAll(@Param('clubId') clubId: string) {
     return this.eventsService.findAll(clubId);
   }
 
   @Get('club/:clubId/:eventId')
+  @ApiOperation({ summary: '행사 상세 조회' })
   findOne(@Param('clubId') clubId: string, @Param('eventId') eventId: string) {
     return this.eventsService.findOne(clubId, eventId);
   }
 
   @Patch('club/:clubId/:eventId')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: '행사 수정 (회장)' })
   @UseGuards(JwtGuard)
   update(
     @Param('clubId') clubId: string,
@@ -60,6 +68,8 @@ export class EventsController {
   }
 
   @Delete('club/:clubId/:eventId')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: '행사 삭제 (회장)' })
   @UseGuards(JwtGuard)
   @HttpCode(HttpStatus.NO_CONTENT)
   remove(
@@ -73,6 +83,8 @@ export class EventsController {
   }
 
   @Post('club/:clubId/:eventId/remind')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: '행사 알림 전송 (회장)' })
   @UseGuards(JwtGuard)
   @HttpCode(HttpStatus.OK)
   async sendReminder(
