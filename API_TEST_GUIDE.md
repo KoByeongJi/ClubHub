@@ -768,3 +768,35 @@ curl -X POST http://localhost:3000/events/club/<clubId>/<eventId>/remind \
 
 - 공지: `src/data/announcements.json`
 - 실시간 알림 시뮬레이션 로그: 서버 콘솔 출력 확인
+
+---
+
+## 검색/필터링 테스트
+
+### 동아리 검색 (이름/키워드)
+
+```bash
+curl -X GET "http://localhost:3000/search/clubs?q=스터디"
+```
+
+- `q`를 비우면 모든 동아리를 반환합니다.
+
+### 동아리 회원 검색 (동아리 내)
+
+```bash
+curl -X GET "http://localhost:3000/search/clubs/<clubId>/members?q=길동" \
+  -H "Authorization: Bearer $OWNER_TOKEN"
+```
+
+- `q`는 회원 이름 또는 이메일을 부분 일치로 검색합니다.
+- 응답은 `{ member, user }` 형태로 회원 상태/역할과 사용자 정보가 함께 반환됩니다.
+
+### 일정 날짜 필터링
+
+```bash
+curl -X GET "http://localhost:3000/search/events?clubId=<clubId>&startDate=2025-12-20&endDate=2025-12-25"
+```
+
+- `clubId` 없이 호출하면 모든 동아리의 일정을 대상으로 합니다.
+- `startDate`, `endDate`는 ISO8601 형식 추천(예: `2025-12-20T00:00:00Z`).
+- 기간이 겹치는 일정이 반환되며, 시작 시간 오름차순으로 정렬됩니다.
