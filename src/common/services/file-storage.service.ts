@@ -5,6 +5,7 @@ import { User } from '../../users/entities/user.entity';
 import { Club } from '../../clubs/entities/club.entity';
 import { Member } from '../../members/entities/member.entity';
 import { Event, Notification } from '../../events/entities/event.entity';
+import { Announcement } from '../../notifications/entities/announcement.entity';
 
 @Injectable()
 export class FileStorageService {
@@ -14,6 +15,7 @@ export class FileStorageService {
   private membersFile = path.join(this.dataDir, 'members.json');
   private eventsFile = path.join(this.dataDir, 'events.json');
   private notificationsFile = path.join(this.dataDir, 'notifications.json');
+  private announcementsFile = path.join(this.dataDir, 'announcements.json');
 
   constructor() {
     this.initializeStorage();
@@ -48,6 +50,11 @@ export class FileStorageService {
     // notifications.json이 없으면 초기화
     if (!fs.existsSync(this.notificationsFile)) {
       fs.writeFileSync(this.notificationsFile, JSON.stringify([], null, 2));
+    }
+
+    // announcements.json이 없으면 초기화
+    if (!fs.existsSync(this.announcementsFile)) {
+      fs.writeFileSync(this.announcementsFile, JSON.stringify([], null, 2));
     }
   }
 
@@ -311,6 +318,70 @@ export class FileStorageService {
     fs.writeFileSync(
       this.notificationsFile,
       JSON.stringify(notifications, null, 2),
+    );
+    return true;
+  }
+
+  // Announcement 관련 메서드
+  getAllAnnouncements(): Announcement[] {
+    const data = fs.readFileSync(this.announcementsFile, 'utf-8');
+    return JSON.parse(data);
+  }
+
+  getAnnouncementById(id: string): Announcement | null {
+    const announcements = this.getAllAnnouncements();
+    return announcements.find((ann) => ann.id === id) || null;
+  }
+
+  getAnnouncementsByClubId(clubId: string): Announcement[] {
+    const announcements = this.getAllAnnouncements();
+    return announcements.filter((ann) => ann.clubId === clubId);
+  }
+
+  saveAnnouncement(announcement: Announcement): void {
+    const announcements = this.getAllAnnouncements();
+    announcements.push(announcement);
+    fs.writeFileSync(
+      this.announcementsFile,
+      JSON.stringify(announcements, null, 2),
+    );
+  }
+
+  updateAnnouncement(
+    id: string,
+    updatedAnnouncement: Partial<Announcement>,
+  ): Announcement | null {
+    const announcements = this.getAllAnnouncements();
+    const index = announcements.findIndex((ann) => ann.id === id);
+
+    if (index === -1) {
+      return null;
+    }
+
+    announcements[index] = {
+      ...announcements[index],
+      ...updatedAnnouncement,
+      updatedAt: new Date(),
+    };
+    fs.writeFileSync(
+      this.announcementsFile,
+      JSON.stringify(announcements, null, 2),
+    );
+    return announcements[index];
+  }
+
+  deleteAnnouncement(id: string): boolean {
+    const announcements = this.getAllAnnouncements();
+    const index = announcements.findIndex((ann) => ann.id === id);
+
+    if (index === -1) {
+      return false;
+    }
+
+    announcements.splice(index, 1);
+    fs.writeFileSync(
+      this.announcementsFile,
+      JSON.stringify(announcements, null, 2),
     );
     return true;
   }

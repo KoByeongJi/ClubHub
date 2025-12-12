@@ -7,6 +7,7 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import { FileStorageService } from '../common/services/file-storage.service';
 import { NotificationService } from '../common/services/notification/notification.service';
+import { NotificationsGateway } from '../notifications/notifications.gateway';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { Event } from './entities/event.entity';
@@ -16,6 +17,7 @@ export class EventsService {
   constructor(
     private readonly fileStorageService: FileStorageService,
     private readonly notificationService: NotificationService,
+    private readonly notificationsGateway: NotificationsGateway,
   ) {}
 
   create(
@@ -56,6 +58,10 @@ export class EventsService {
     };
 
     this.fileStorageService.saveEvent(newEvent);
+
+    // WebSocket 실시간 알림 전송
+    this.notificationsGateway.notifyNewEvent(clubId, newEvent);
+
     return newEvent;
   }
 
@@ -185,5 +191,8 @@ export class EventsService {
     }
 
     await this.notificationService.sendEventReminder(eventId, clubId, 24);
+
+    // WebSocket 실시간 알림 전송
+    this.notificationsGateway.notifyEventReminder(clubId, event);
   }
 }

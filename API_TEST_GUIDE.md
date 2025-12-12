@@ -605,3 +605,166 @@ curl -X POST http://localhost:3000/events/club/<clubId>/<eventId>/remind \
   현재는 console 로그로 시뮬레이션되며, 실제 운영 환경에서는 외부 서비스 연동이 필요합니다.
 
 ---
+
+## 공지사항 및 실시간 알림 테스트
+
+### 전제
+
+- 회장 토큰(`$OWNER_TOKEN`)과 일반 사용자 토큰(`$USER_TOKEN`)을 준비합니다.
+- WebSocket은 인증 없이 접속 가능합니다. 기본 URL: `http://localhost:3000`.
+
+### WebSocket 연결 예제 (Node 클라이언트)
+
+```bash
+npm install socket.io-client
+```
+
+```javascript
+// ws-test.js
+const { io } = require('socket.io-client');
+
+const clubId = '<club-id>'; // 수신하려는 동아리 ID
+const socket = io('http://localhost:3000');
+
+socket.on('connect', () => {
+  console.log('connected', socket.id);
+});
+
+socket.on(`club:${clubId}:new-announcement`, (data) => {
+  console.log('새 공지', data);
+});
+
+socket.on(`club:${clubId}:new-event`, (data) => {
+  console.log('새 행사', data);
+});
+
+socket.on(`club:${clubId}:event-reminder`, (data) => {
+  console.log('행사 리마인더', data);
+});
+```
+
+실행:
+
+```bash
+node ws-test.js
+```
+
+### 공지사항 생성 (회장만)
+
+```bash
+curl -X POST http://localhost:3000/notifications/club/<clubId>/announcements \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $OWNER_TOKEN" \
+  -d '{
+    "title": "정기 총회 안내",
+    "content": "12/20(금) 19:00 학생회관 3층 세미나실",
+    "type": "general",
+    "isPinned": true
+  }'
+```
+
+WebSocket으로 `club:<clubId>:new-announcement` 이벤트가 전송됩니다.
+
+### 공지사항 목록 조회 (회원)
+
+```bash
+curl -X GET http://localhost:3000/notifications/club/<clubId>/announcements \
+  -H "Authorization: Bearer $USER_TOKEN"
+```
+
+### 공지사항 상세 조회 (회원)
+
+```bash
+curl -X GET http://localhost:3000/notifications/club/<clubId>/announcements/<announcementId> \
+  -H "Authorization: Bearer $USER_TOKEN"
+```
+
+### 공지사항 수정 (회장만)
+
+```bash
+curl -X PATCH http://localhost:3000/notifications/club/<clubId>/announcements/<announcementId> \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $OWNER_TOKEN" \
+  -d '{
+    "content": "장소가 학생회관 2층 세미나실로 변경되었습니다.",
+    "isPinned": true
+  }'
+```
+
+### 공지사항 삭제 (회장만)
+
+```bash
+curl -X DELETE http://localhost:3000/notifications/club/<clubId>/announcements/<announcementId> \
+  -H "Authorization: Bearer $OWNER_TOKEN"
+```
+
+### 행사 알림 실시간 수신 확인
+
+1. 회장 토큰으로 행사 생성 → WebSocket `club:<clubId>:new-event` 수신
+
+```bash
+curl -X POST http://localhost:3000/events/club/<clubId> \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $OWNER_TOKEN" \
+  -d '{
+    "title": "해커톤 OT",
+    "description": "룰 설명 및 팀 빌딩",
+    "startDate": "2025-12-22T10:00:00Z",
+    "endDate": "2025-12-22T12:00:00Z",
+    "location": "학생회관 1층 라운지",
+    "maxAttendees": 50
+  }'
+```
+
+2. 행사 알림 수동 전송 → WebSocket `club:<clubId>:event-reminder` 수신
+
+```bash
+curl -X POST http://localhost:3000/events/club/<clubId>/<eventId>/remind \
+  -H "Authorization: Bearer $OWNER_TOKEN"
+```
+
+### 알림 페이로드 참고
+
+- `club:<clubId>:new-announcement`
+
+```json
+{
+  "type": "announcement",
+  "clubId": "<club-id>",
+  "announcement": {
+    /* 공지 본문 */
+  },
+  "timestamp": "2025-12-12T12:00:00.000Z"
+}
+```
+
+- `club:<clubId>:new-event`
+
+```json
+{
+  "type": "event",
+  "clubId": "<club-id>",
+  "event": {
+    /* 행사 본문 */
+  },
+  "timestamp": "2025-12-12T12:00:00.000Z"
+}
+```
+
+- `club:<clubId>:event-reminder`
+
+```json
+{
+  "type": "reminder",
+  "clubId": "<club-id>",
+  "event": {
+    /* 행사 본문 */
+  },
+  "timestamp": "2025-12-12T12:00:00.000Z"
+}
+```
+
+### 데이터 파일 확인
+
+- 공지: `src/data/announcements.json`
+- 실시간 알림 시뮬레이션 로그: 서버 콘솔 출력 확인
