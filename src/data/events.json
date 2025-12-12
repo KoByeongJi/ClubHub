@@ -1,0 +1,15 @@
+[
+  {
+    "id": "90db9195-50ee-410d-8323-a72744dd91f8",
+    "clubId": "711548a7-a345-46e5-bee2-fb463f2cfaf8",
+    "title": "연말 송년회",
+    "description": "저녁 식사 및 간단한 레크레이션",
+    "startDate": "2025-12-21T17:00:00.000Z",
+    "endDate": "2025-12-21T22:00:00.000Z",
+    "location": "성수 파티룸",
+    "maxAttendees": "25",
+    "createdBy": "a0a4c262-8715-4c1b-b483-6fcae95fe5e0",
+    "createdAt": "2025-12-11T12:21:00.493Z",
+    "updatedAt": "2025-12-12T05:57:32.735Z"
+  }
+]

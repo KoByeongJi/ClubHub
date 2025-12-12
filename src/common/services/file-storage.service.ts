@@ -4,6 +4,7 @@ import * as path from 'path';
 import { User } from '../../users/entities/user.entity';
 import { Club } from '../../clubs/entities/club.entity';
 import { Member } from '../../members/entities/member.entity';
+import { Event, Notification } from '../../events/entities/event.entity';
 
 @Injectable()
 export class FileStorageService {
@@ -11,6 +12,8 @@ export class FileStorageService {
   private usersFile = path.join(this.dataDir, 'users.json');
   private clubsFile = path.join(this.dataDir, 'clubs.json');
   private membersFile = path.join(this.dataDir, 'members.json');
+  private eventsFile = path.join(this.dataDir, 'events.json');
+  private notificationsFile = path.join(this.dataDir, 'notifications.json');
 
   constructor() {
     this.initializeStorage();
@@ -35,6 +38,16 @@ export class FileStorageService {
     // members.json이 없으면 초기화
     if (!fs.existsSync(this.membersFile)) {
       fs.writeFileSync(this.membersFile, JSON.stringify([], null, 2));
+    }
+
+    // events.json이 없으면 초기화
+    if (!fs.existsSync(this.eventsFile)) {
+      fs.writeFileSync(this.eventsFile, JSON.stringify([], null, 2));
+    }
+
+    // notifications.json이 없으면 초기화
+    if (!fs.existsSync(this.notificationsFile)) {
+      fs.writeFileSync(this.notificationsFile, JSON.stringify([], null, 2));
     }
   }
 
@@ -182,6 +195,123 @@ export class FileStorageService {
 
     members.splice(index, 1);
     fs.writeFileSync(this.membersFile, JSON.stringify(members, null, 2));
+    return true;
+  }
+
+  // Event 관련 메서드
+  getAllEvents(): Event[] {
+    const data = fs.readFileSync(this.eventsFile, 'utf-8');
+    return JSON.parse(data);
+  }
+
+  getEventById(id: string): Event | null {
+    const events = this.getAllEvents();
+    return events.find((event) => event.id === id) || null;
+  }
+
+  getEventsByClubId(clubId: string): Event[] {
+    const events = this.getAllEvents();
+    return events.filter((event) => event.clubId === clubId);
+  }
+
+  saveEvent(event: Event): void {
+    const events = this.getAllEvents();
+    events.push(event);
+    fs.writeFileSync(this.eventsFile, JSON.stringify(events, null, 2));
+  }
+
+  updateEvent(id: string, updatedEvent: Partial<Event>): Event | null {
+    const events = this.getAllEvents();
+    const index = events.findIndex((event) => event.id === id);
+
+    if (index === -1) {
+      return null;
+    }
+
+    events[index] = {
+      ...events[index],
+      ...updatedEvent,
+      updatedAt: new Date(),
+    };
+    fs.writeFileSync(this.eventsFile, JSON.stringify(events, null, 2));
+    return events[index];
+  }
+
+  deleteEvent(id: string): boolean {
+    const events = this.getAllEvents();
+    const index = events.findIndex((event) => event.id === id);
+
+    if (index === -1) {
+      return false;
+    }
+
+    events.splice(index, 1);
+    fs.writeFileSync(this.eventsFile, JSON.stringify(events, null, 2));
+    return true;
+  }
+
+  // Notification 관련 메서드
+  getAllNotifications(): Notification[] {
+    const data = fs.readFileSync(this.notificationsFile, 'utf-8');
+    return JSON.parse(data);
+  }
+
+  getNotificationById(id: string): Notification | null {
+    const notifications = this.getAllNotifications();
+    return notifications.find((notif) => notif.id === id) || null;
+  }
+
+  getNotificationsByEventId(eventId: string): Notification[] {
+    const notifications = this.getAllNotifications();
+    return notifications.filter((notif) => notif.eventId === eventId);
+  }
+
+  getNotificationsByUserId(userId: string): Notification[] {
+    const notifications = this.getAllNotifications();
+    return notifications.filter((notif) => notif.userId === userId);
+  }
+
+  saveNotification(notification: Notification): void {
+    const notifications = this.getAllNotifications();
+    notifications.push(notification);
+    fs.writeFileSync(
+      this.notificationsFile,
+      JSON.stringify(notifications, null, 2),
+    );
+  }
+
+  updateNotification(
+    id: string,
+    updatedNotification: Partial<Notification>,
+  ): Notification | null {
+    const notifications = this.getAllNotifications();
+    const index = notifications.findIndex((notif) => notif.id === id);
+
+    if (index === -1) {
+      return null;
+    }
+
+    notifications[index] = { ...notifications[index], ...updatedNotification };
+    fs.writeFileSync(
+      this.notificationsFile,
+      JSON.stringify(notifications, null, 2),
+    );
+    return notifications[index];
+  }
+
+  deleteNotification(id: string): boolean {
+    const notifications = this.getAllNotifications();
+    const index = notifications.findIndex((notif) => notif.id === id);
+
+    if (index === -1) {
+      return false;
+    }
+
+    notifications.splice(index, 1);
+    fs.writeFileSync(
+      this.notificationsFile,
+      JSON.stringify(notifications, null, 2),
+    );
     return true;
   }
 }

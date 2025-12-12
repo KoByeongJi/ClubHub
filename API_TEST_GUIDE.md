@@ -504,3 +504,104 @@ curl -X PATCH http://localhost:3000/members/club/<clubId>/role/<memberId> \
 ```
 
 ---
+
+## 활동 일정 관리 테스트
+
+### 1. 행사 등록 (회장만)
+
+```bash
+curl -X POST http://localhost:3000/events/club/<clubId> \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $OWNER_TOKEN" \
+  -d '{
+    "title": "웹 개발 워크숍",
+    "description": "React와 Node.js를 활용한 웹 개발 기초",
+    "startDate": "2025-12-20T14:00:00Z",
+    "endDate": "2025-12-20T17:00:00Z",
+    "location": "학생회관 3층 세미나실",
+    "maxAttendees": 30
+  }'
+```
+
+**예상 응답 (201 Created)**:
+
+```json
+{
+  "id": "e1f2g3h4-i5j6-4k7l-m8n9-o0p1q2r3s4t5",
+  "clubId": "<club-id>",
+  "title": "웹 개발 워크숍",
+  "description": "React와 Node.js를 활용한 웹 개발 기초",
+  "startDate": "2025-12-20T14:00:00.000Z",
+  "endDate": "2025-12-20T17:00:00.000Z",
+  "location": "학생회관 3층 세미나실",
+  "maxAttendees": 30,
+  "createdBy": "<owner-id>",
+  "createdAt": "2025-12-11T10:00:00.000Z",
+  "updatedAt": "2025-12-11T10:00:00.000Z"
+}
+```
+
+---
+
+### 2. 행사 목록 조회 (전체 공개)
+
+```bash
+curl -X GET http://localhost:3000/events/club/<clubId>
+```
+
+---
+
+### 3. 행사 상세 조회 (전체 공개)
+
+```bash
+curl -X GET http://localhost:3000/events/club/<clubId>/<eventId>
+```
+
+---
+
+### 4. 행사 수정 (회장만)
+
+```bash
+curl -X PATCH http://localhost:3000/events/club/<clubId>/<eventId> \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $OWNER_TOKEN" \
+  -d '{
+    "description": "React, Vue, Node.js 등 다양한 웹 프레임워크 소개",
+    "maxAttendees": 40
+  }'
+```
+
+---
+
+### 5. 행사 삭제 (회장만)
+
+```bash
+curl -X DELETE http://localhost:3000/events/club/<clubId>/<eventId> \
+  -H "Authorization: Bearer $OWNER_TOKEN"
+```
+
+---
+
+### 6. 행사 알림 전송 (회장만)
+
+행사 시작 24시간 전에 회원들에게 알림을 전송합니다:
+
+```bash
+curl -X POST http://localhost:3000/events/club/<clubId>/<eventId>/remind \
+  -H "Authorization: Bearer $OWNER_TOKEN"
+```
+
+**예상 응답**:
+
+```json
+{
+  "message": "행사 알림이 전송되었습니다."
+}
+```
+
+### 알림 채널
+
+- **이메일**: 사용자 이메일로 행사 정보 전송
+  현재는 console 로그로 시뮬레이션되며, 실제 운영 환경에서는 외부 서비스 연동이 필요합니다.
+
+---

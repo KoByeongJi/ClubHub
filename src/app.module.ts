@@ -5,9 +5,10 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { ClubsModule } from './clubs/clubs.module';
 import { MembersModule } from './members/members.module';
+import { EventsModule } from './events/events.module';
 
 @Module({
-  imports: [AuthModule, UsersModule, ClubsModule, MembersModule],
+  imports: [AuthModule, UsersModule, ClubsModule, MembersModule, EventsModule],
   controllers: [AppController],
   providers: [AppService],
 })
